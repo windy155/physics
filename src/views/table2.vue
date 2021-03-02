@@ -113,42 +113,14 @@ export default {
         //   date: "2020/06/30/14:49:11",
         //   time: "@time",
         // },
-        // {
-        //   id: 2,
-        //   num: 5,
-        //   width: 372,
-        //   height: 384,
-        //   scale: 0.65286,
-        //   shift: 0.4,
-        //   degree: "6.94°",
-        //   distence: 2.66,
-        //   pareaarproblema9: 231,
-        //   parproblema9: "钉花少，钉偏",
-        //   date: "2020/06/30/14:49:11",
-        //   time: "@time",
-        // },
-        // {
-        //   id: 3,
-        //   num: 5,
-        //   width: 372,
-        //   height: 384,
-        //   scale: 0.65286,
-        //   shift: 0.4,
-        //   degree: "6.94°",
-        //   distence: 2.66,
-        //   pareaarproblema9: 231,
-        //   parproblema9: "钉花少，钉偏",
-        //   date: "2020/06/30/14:49:11",
-        //   time: "@time",
-        // },
       ],
       lists: {
-        nowPage: 1,
+        nowPage: Number(this.$route.query.nowPage),
         size: 10,
         totalPage: 1,
         // showUp: true,
         // showDown: true,
-        page: this.$route.params.nowPage,
+        page: Number(this.$route.query.lastPage),
         id: 1,
         lastId: 1,
       },
@@ -168,8 +140,8 @@ export default {
 
   mounted() {
     // console.log(typeof this.lists.lastId)
-    this.lists.lastId = this.$route.params.id;
-    this.ajax(this.$route.params.id);
+    this.lists.lastId = Number(this.$route.query.lastId);
+    this.ajax(this.$route.query.lastId);
     // if (this.lists.nowPage == 1) {
     //   this.lists.showUp = false;
     // }
@@ -195,7 +167,7 @@ export default {
   methods: {
     ajax(id) {
       this.$jsonp(
-        `http://192.168.0.102:8888/detail?size=${this.lists.size}&id=${id}&nowPage=${this.lists.nowPage}`,
+        `http://localhost:8888/detail?size=${this.lists.size}&id=${id}&nowPage=${this.lists.nowPage}`,
         {
           // params: {
           //   id,
@@ -281,7 +253,15 @@ export default {
     },
     handleCurrentChange(nowPage) {
       this.lists.nowPage = nowPage;
-      this.ajax(this.$route.params.id);
+      this.$router.replace({
+        query: {
+          lastId: this.lists.lastId,
+          lastPage: this.lists.page,
+          nowPage: this.lists.nowPage,
+        },
+      });
+      console.log(this.$route.query, this.lists.nowPage);
+      this.ajax(this.lists.lastId);
     },
   },
 };

@@ -141,7 +141,7 @@ export default {
   methods: {
     ajax(machine) {
       this.$jsonp(
-        `http://192.168.0.102:8888/goodmount?machine=${machine}`,
+        `http://localhost:8888/goodmount?machine=${machine}`,
         null,
         (err, data) => {
           if (err) {

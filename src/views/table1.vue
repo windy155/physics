@@ -29,10 +29,15 @@
               <router-link
                 :to="{
                   name: 'Table2',
-                  params: { id: machine.id, nowPage: lists.nowPage },
+                  params: { id: machine.id },
+                  query: {
+                    lastId: machine.id,
+                    lastPage: lists.nowPage,
+                    nowPage: 1,
+                  },
                 }"
               >
-                <button class="btn-check" type="button" @click="changeTable">
+                <button class="btn-check" type="button">
                   查看明细
                 </button>
               </router-link>
@@ -136,7 +141,7 @@ export default {
     //获取后台数据的方法
     ajax() {
       this.$jsonp(
-        `http://192.168.0.102:8888/all?size=${this.lists.size}&nowPage=${this.lists.nowPage}`,
+        `http://localhost:8888/all?size=${this.lists.size}&nowPage=${this.lists.nowPage}`,
         null,
         (err, data) => {
           if (err) {
@@ -193,16 +198,6 @@ export default {
     handleCurrentChange(nowPage) {
       this.lists.nowPage = nowPage;
       this.ajax(this.$route.params.id);
-    },
-
-    changeTable() {
-      this.$router.push({
-        path: "/table1/table/:id",
-        query: {
-          id: machine.id,
-          nowPage: lists.nowPage,
-        },
-      });
     },
   },
 };

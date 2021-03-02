@@ -26,7 +26,7 @@ export default {
     ajax(lastId, id, type) {
       if (type == "bad") {
         this.$jsonp(
-          `http://192.168.0.102:8888/badimg?machine=${lastId}&id=${id}`,
+          `http://localhost:8888/badimg?machine=${lastId}&id=${id}`,
           null,
           (err, data) => {
             if (err) {
@@ -38,7 +38,7 @@ export default {
         );
       } else if (type == "good") {
         this.$jsonp(
-          `http://192.168.0.102:8888/goodimg?machine=${lastId}&id=${id}`,
+          `http://localhost:8888/goodimg?machine=${lastId}&id=${id}`,
           null,
           (err, data) => {
             if (err) {

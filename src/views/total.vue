@@ -32,7 +32,7 @@ export default {
   methods: {
     //获取后台数据的方法
     ajax() {
-      this.$jsonp("http://192.168.0.102:8888/total", null, (err, data) => {
+      this.$jsonp("http://localhost:8888/total", null, (err, data) => {
         if (err) {
           console.log(err);
         } else {
